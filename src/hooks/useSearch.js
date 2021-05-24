@@ -18,7 +18,6 @@ export function useSearch() {
 
     function updateTerm(event) {
         const { target: { value } } = event;
-        console.log(value);
         setSearchTerm(value);
     }
 
