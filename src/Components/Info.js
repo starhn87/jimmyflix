@@ -4,6 +4,7 @@ import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import imdb from "../assets/imdb.png";
 import defaultImg from "../assets/noPosterSmall.png";
+import Section from "./Section";
 
 const Container = styled.div`
     position: relative;
@@ -134,9 +135,17 @@ const Iframe = styled.iframe`
     }
 `;
 
+const Logo = styled.img`
+    width: 100%;
+    background-color: ${props => (props.logo ? "white" : "transparent")};
+`;
+
+const Nation = styled.span`
+    margin-bottom: 20px;
+`;
+
 function Info({ result, router }) {
     const { match: { url }, location: { pathname } } = router;
-    console.log(pathname);
 
     return (
         <>
@@ -171,8 +180,8 @@ function Info({ result, router }) {
                                 <Li current={pathname === `${url}`}>
                                     <SLink to={`${url}`}>Trailer</SLink>
                                 </Li>
-                                <Li current={pathname.includes("/company")}>
-                                    <SLink to={`${url}/company`}>Production Company</SLink>
+                                <Li current={pathname.includes("/participation")}>
+                                    <SLink to={`${url}/participation`}>Participation</SLink>
                                 </Li>
                                 <Li current={pathname.includes("/nation")}>
                                     <SLink to={`${url}/nation`}>Nations</SLink>
@@ -205,7 +214,21 @@ function Info({ result, router }) {
                             }
                             )
                         } />
-                        <Route path={`${url}/company`} exact render={() => { return "company" }} />
+                        <Route path={`${url}/participation`} exact render={() => (
+                            <>
+                                {result.production_companies && result.production_companies.length > 0 && <Section title="Production Company">
+                                    {result.production_companies.map(company => {
+                                        return <Logo key={company.id} logo={company.logo_path} src={`https://image.tmdb.org/t/p/original${company.logo_path}`} alt={`${company.name}`} />
+                                    })}
+                                </Section>}
+                                {result.production_countries && result.production_countries.length > 0 && <Section title="Production Country">
+                                    {result.production_countries.map(country =>
+                                        <Nation>{country.name}</Nation>
+                                    )}
+                                </Section>}
+                            </>
+                        )
+                        } />
                         <Route path={`${url}/nation`} exact render={() => "nation"} />
                     </Data>
                 </Content>
