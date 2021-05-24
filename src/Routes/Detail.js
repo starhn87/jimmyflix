@@ -26,7 +26,7 @@ function Detail() {
         error ? (
             <Message color="#e74c3c" text={error}></Message>
         ) : (
-            <Info result={result} />
+            <Info result={result} router={router} />
         )
     )
 }

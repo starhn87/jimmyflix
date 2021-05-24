@@ -22,7 +22,9 @@ const Grid = styled.div`
 
 const Section = ({ title, children }) => (
     <Container>
-        <Title>{title}</Title>
+        {title && (
+            <Title>{title}</Title>
+        )}
         <Grid>{children}</Grid>
     </Container>
 );
