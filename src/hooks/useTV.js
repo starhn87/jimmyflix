@@ -27,6 +27,7 @@ export function useTV() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getTV();
     }, []);
 

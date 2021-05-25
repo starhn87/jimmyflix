@@ -4,6 +4,7 @@ import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import imdb from "../assets/imdb.png";
 import defaultImg from "../assets/noPosterSmall.png";
+import Collection from "../Routes/Collection";
 import Section from "./Section";
 
 const Container = styled.div`
@@ -137,11 +138,20 @@ const Iframe = styled.iframe`
 
 const Logo = styled.img`
     width: 100%;
+    padding: 5px;
     background-color: ${props => (props.logo ? "white" : "transparent")};
 `;
 
 const Nation = styled.span`
     margin-bottom: 20px;
+`;
+
+const Season = styled.img`
+    width: 100%;
+`;
+
+const Box = styled.div`
+    width: 70%;
 `;
 
 function Info({ result, router }) {
@@ -180,12 +190,21 @@ function Info({ result, router }) {
                                 <Li current={pathname === `${url}`}>
                                     <SLink to={`${url}`}>Trailer</SLink>
                                 </Li>
-                                <Li current={pathname.includes("/participation")}>
-                                    <SLink to={`${url}/participation`}>Participation</SLink>
+                                <Li current={pathname.includes("/production")}>
+                                    <SLink to={`${url}/production`}>Production</SLink>
                                 </Li>
-                                <Li current={pathname.includes("/nation")}>
-                                    <SLink to={`${url}/nation`}>Nations</SLink>
-                                </Li>
+                                {
+                                    result.belongs_to_collection &&
+                                    <Li current={pathname.includes("/collection")}>
+                                        <SLink to={`${url}/collection`}>Collection</SLink>
+                                    </Li>
+                                }
+                                {
+                                    result.seasons && result.seasons.length > 0 &&
+                                    <Li current={pathname.includes("/season")}>
+                                        <SLink to={`${url}/season`}>Season</SLink>
+                                    </Li>
+                                }
                             </List>
                         </Tab>
                         {/* {!result.video && result.videos.results && result.videos.results.length > 0 &&
@@ -214,8 +233,8 @@ function Info({ result, router }) {
                             }
                             )
                         } />
-                        <Route path={`${url}/participation`} exact render={() => (
-                            <>
+                        <Route path={`${url}/production`} exact render={() => (
+                            <Box>
                                 {result.production_companies && result.production_companies.length > 0 && <Section title="Production Company">
                                     {result.production_companies.map(company => {
                                         return <Logo key={company.id} logo={company.logo_path} src={`https://image.tmdb.org/t/p/original${company.logo_path}`} alt={`${company.name}`} />
@@ -226,10 +245,19 @@ function Info({ result, router }) {
                                         <Nation>{country.name}</Nation>
                                     )}
                                 </Section>}
-                            </>
+                            </Box>
                         )
                         } />
-                        <Route path={`${url}/nation`} exact render={() => "nation"} />
+                        <Route path={`${url}/collection`} exact render={() => <Collection id={result.belongs_to_collection.id} />} />
+
+                        <Route path={`${url}/season`} exact render={() => (
+                            <Box>
+                                <Section>
+                                    {result.seasons.map(season => <Season src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />)}
+                                </Section>
+                            </Box>
+                        )}
+                        />
                     </Data>
                 </Content>
             </Container>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { moviesApi, tvApi } from "../api";
 
 
@@ -34,6 +34,10 @@ export function useSearch() {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return { movieResults, tvResults, searchTerm, handleSubmit, updateTerm, error, loading };
 }

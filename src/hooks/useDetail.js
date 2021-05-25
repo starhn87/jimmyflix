@@ -30,6 +30,7 @@ export function useDetail({ location: { pathname }, match: { params: { id } }, h
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getDetail();
     }, []);
 

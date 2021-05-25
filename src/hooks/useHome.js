@@ -27,6 +27,7 @@ export function useHome() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getHome();
     }, []);
 
