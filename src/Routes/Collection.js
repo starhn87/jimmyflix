@@ -1,10 +1,5 @@
 import React from "react";
-import Helmet from "react-helmet";
-import Loader from "../Components/Loader";
 import Message from "../Components/Message";
-import { useDetail } from "../hooks/useDetail";
-import useReactRouter from "use-react-router";
-import Info from "../Components/Info";
 import { useCollection } from "../hooks/useCollection";
 import Section from "../Components/Section";
 import styled from "styled-components";

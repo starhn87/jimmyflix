@@ -27,6 +27,7 @@ Learning React and ES6 by building a Movie Discovery App using React Presenter P
 - [x] Collections Link
 - [x] /collections Route
 - [x] On TV Show, show seasons
+- [ ] Use Context API
 
 ## Preview:
 

@@ -207,18 +207,6 @@ function Info({ result, router }) {
                                 }
                             </List>
                         </Tab>
-                        {/* {!result.video && result.videos.results && result.videos.results.length > 0 &&
-                            result.videos.results.map(video =>
-                                <Iframe
-                                    key={video.key}
-                                    src={`https://www.youtube.com/embed/${video.key}`}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    title="Embedded youtube official trailer">
-                                </Iframe>
-                            )
-                        } */}
                         <Route path={`${url}`} exact render={() =>
                             !result.video && result.videos.results && result.videos.results.length > 0 &&
                             result.videos.results.map(video => {
