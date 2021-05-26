@@ -23,8 +23,6 @@ export function useSearch() {
 
     async function searchByTerm() {
         try {
-            const searched = await moviesApi.search(searchTerm);
-            console.log(searched);
             const { data: { results: movieResults } } = await moviesApi.search(searchTerm);
             setMovieResults(movieResults);
 
