@@ -2,8 +2,10 @@ import React from "react";
 import Helmet from "react-helmet";
 import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
+import useRouter from "use-react-router";
 import imdb from "../assets/imdb.png";
 import defaultImg from "../assets/noPosterSmall.png";
+import { useDetailState } from "../contexts/DetailContext";
 import Collection from "../Routes/Collection";
 import Section from "./Section";
 
@@ -154,8 +156,9 @@ const Box = styled.div`
     width: 70%;
 `;
 
-function Info({ result, router }) {
-    const { match: { url }, location: { pathname } } = router;
+function Info() {
+    const { result } = useDetailState();
+    const { match: { url }, location: { pathname } } = useRouter();
 
     return (
         <>
@@ -229,8 +232,8 @@ function Info({ result, router }) {
                                     })}
                                 </Section>}
                                 {result.production_countries && result.production_countries.length > 0 && <Section title="Production Country">
-                                    {result.production_countries.map(country =>
-                                        <Nation>{country.name}</Nation>
+                                    {result.production_countries.map((country, index) =>
+                                        <Nation key={index}>{country.name}</Nation>
                                     )}
                                 </Section>}
                             </Box>
@@ -241,7 +244,7 @@ function Info({ result, router }) {
                         <Route path={`${url}/season`} exact render={() => (
                             <Box>
                                 <Section>
-                                    {result.seasons.map(season => <Season src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />)}
+                                    {result.seasons.map((season, index) => <Season key={index} src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />)}
                                 </Section>
                             </Box>
                         )}

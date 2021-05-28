@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useRouter from "use-react-router";
+import { FAIL, SUCCESS } from "../actions";
 import { moviesApi, tvApi } from "../api";
+import { useDetailDispatch } from "../contexts/DetailContext";
 
-export function useDetail({ location: { pathname }, match: { params: { id } }, history: { push } }) {
-    const [result, setResult] = useState(null);
-    const [isMovie, setIsMovie] = useState(pathname.includes("/movie/"));
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+export function useDetail() {
+    const { match: { params: { id } }, location: { pathname }, history: { push } } = useRouter();
+    const dispatch = useDetailDispatch();
+
+    const isMovie = pathname.includes("/movie/");
 
     async function getDetail() {
         const parsedId = parseInt(id);
@@ -21,11 +24,9 @@ export function useDetail({ location: { pathname }, match: { params: { id } }, h
             } else {
                 ({ data: results } = await tvApi.showDetail(parsedId));
             }
-            setResult(results);
+            dispatch({ type: SUCCESS, payload: results });
         } catch {
-            setError("Can't find anything.");
-        } finally {
-            setLoading(false);
+            dispatch({ type: FAIL });
         }
     }
 
@@ -33,7 +34,5 @@ export function useDetail({ location: { pathname }, match: { params: { id } }, h
         window.scrollTo(0, 0);
         getDetail();
     }, []);
-
-    return { result, error, loading };
 }
 

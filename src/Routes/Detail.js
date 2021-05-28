@@ -5,16 +5,12 @@ import Message from "../Components/Message";
 import { useDetail } from "../hooks/useDetail";
 import useReactRouter from "use-react-router";
 import Info from "../Components/Info";
+import { useDetailState } from "../contexts/DetailContext";
 
 function Detail() {
-    const router = useReactRouter();
-    const {
-        result,
-        loading,
-        error
-    } = useDetail(router);
+    useDetail();
+    const { loading, error } = useDetailState();
 
-    console.log(result);
     return loading ? (
         <>
             <Helmet>
@@ -26,7 +22,7 @@ function Detail() {
         error ? (
             <Message color="#e74c3c" text={error}></Message>
         ) : (
-            <Info result={result} router={router} />
+            <Info />
         )
     )
 }

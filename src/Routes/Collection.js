@@ -24,7 +24,7 @@ function Collection({ id }) {
         <Container>
             <Section>
                 {collection && collection.length > 0 &&
-                    (collection.map(c => <Item src={`https://image.tmdb.org/t/p/original${c.poster_path}`} alt={c.name} />))
+                    (collection.map((c, index) => <Item key={index} src={`https://image.tmdb.org/t/p/original${c.poster_path}`} alt={c.name} />))
                 }
             </Section>
         </Container>
