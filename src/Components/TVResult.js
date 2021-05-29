@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+import { useTVState } from "../contexts/TVContext";
 import Message from "./Message";
 import Poster from "./Poster";
 import Section from "./Section";

@@ -1,5 +1,13 @@
 import React from "react";
+import styled from "styled-components";
 import { useHomeState } from "../contexts/HomeContext";
+import Message from "./Message";
+import Poster from "./Poster";
+import Section from "./Section";
+
+const Container = styled.div`
+    padding: 20px;
+`;
 
 function MovieResult() {
     const { nowPlaying, upcoming, popular, error } = useHomeState();
