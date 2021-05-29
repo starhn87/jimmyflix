@@ -24,6 +24,7 @@ export function useDetail() {
             } else {
                 ({ data: results } = await tvApi.showDetail(parsedId));
             }
+            console.log(results);
             dispatch({ type: SUCCESS, payload: results });
         } catch {
             dispatch({ type: FAIL });

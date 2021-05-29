@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
+import { FAIL, SUCCESS } from "../actions";
 import { tvApi } from "../api";
+import { useTVDispatch } from "../contexts/TVContext";
 
 
 export function useTV() {
-    const [topRated, setTopRated] = useState(null);
-    const [popular, setPopular] = useState(null);
-    const [airingToday, setAiringToday] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useTVDispatch();
 
     async function getTV() {
         try {
             const { data: { results: topRated } } = await tvApi.topRated();
-            setTopRated(topRated);
-
             const { data: { results: popular } } = await tvApi.popular();
-            setPopular(popular);
-
             const { data: { results: airingToday } } = await tvApi.airingToday();
-            setAiringToday(airingToday);
+            console.log(topRated, airingToday, popular);
+            dispatch({ type: SUCCESS, payload: { topRated, popular, airingToday } });
         } catch {
-            setError("Can't find TV information.");
-        } finally {
-            setLoading(false);
+            dispatch({ type: FAIL });
         }
     }
 
@@ -30,7 +23,5 @@ export function useTV() {
         window.scrollTo(0, 0);
         getTV();
     }, []);
-
-    return { topRated, popular, airingToday, error, loading };
 }
 

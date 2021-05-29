@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import Section from "../Components/Section";
 import Loader from "../Components/Loader";
@@ -7,13 +6,15 @@ import Message from "../Components/Message";
 import Poster from "../Components/Poster";
 import Helmet from "react-helmet";
 import { useHome } from "../hooks/useHome";
+import { useHomeState } from "../contexts/HomeContext";
 
 const Container = styled.div`
     padding: 20px;
 `;
 
 function Home() {
-    const { nowPlaying, upcoming, popular, error, loading } = useHome();
+    useHome();
+    const { nowPlaying, upcoming, popular, error, loading } = useHomeState();
 
     return <>
         <Helmet>

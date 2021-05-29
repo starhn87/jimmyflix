@@ -6,21 +6,40 @@ import Search from "../Routes/Search";
 import Header from "./Header";
 import Detail from "../Routes/Detail";
 import DetailProvider from "../contexts/DetailContext";
+import HomeProvider from "../contexts/HomeContext";
+import TVProvider from "../contexts/TVContext";
+import SearchProvider from "../contexts/SearchContext";
 
 export default () => (
     <Router>
         <>
             <Header />
             <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/tv" component={TV} />
-                <Route path="/tv/popular" render={() => <h1>Popular</h1>} />
-                <Route path="/search" component={Search} />
-                <DetailProvider>
-                    <Route path="/movie/:id" component={Detail} />
-                    <Route path="/show/:id" component={Detail} />
-                </DetailProvider>
-                <Redirect from="*" to={{ Home }} />
+                <Route path="/" exact>
+                    <HomeProvider>
+                        <Home />
+                    </HomeProvider>
+                </Route>
+                <Route path="/tv">
+                    <TVProvider>
+                        <TV />
+                    </TVProvider>
+                </Route>
+                <Route path="/search">
+                    <SearchProvider>
+                        <Search />
+                    </SearchProvider>
+                </Route>
+                <Route path={["/movie/:id", "/show/:id"]}>
+                    <DetailProvider>
+                        <Detail />
+                    </DetailProvider>
+                </Route>
+                <Route path="*">
+                    <HomeProvider>
+                        <Redirect to={{ Home }} />
+                    </HomeProvider>
+                </Route>
             </Switch>
         </>
     </Router>

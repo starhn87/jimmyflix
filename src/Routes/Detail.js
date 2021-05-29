@@ -3,7 +3,6 @@ import Helmet from "react-helmet";
 import Loader from "../Components/Loader";
 import Message from "../Components/Message";
 import { useDetail } from "../hooks/useDetail";
-import useReactRouter from "use-react-router";
 import Info from "../Components/Info";
 import { useDetailState } from "../contexts/DetailContext";
 

@@ -6,6 +6,7 @@ import Message from "../Components/Message";
 import Poster from "../Components/Poster";
 import Helmet from "react-helmet";
 import { useTV } from "../hooks/useTV";
+import { useTVState } from "../contexts/TVContext";
 
 
 const Container = styled.div`
@@ -13,13 +14,15 @@ const Container = styled.div`
 `;
 
 export function TV() {
+    useTV();
     const {
         topRated,
         popular,
         airingToday,
         loading,
         error
-    } = useTV();
+    } = useTVState();
+
     return <>
         <Helmet>
             <title>TV Shows | Jimmyflix</title>

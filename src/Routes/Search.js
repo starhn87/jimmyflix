@@ -6,6 +6,7 @@ import Message from "../Components/Message";
 import Poster from "../Components/Poster";
 import Helmet from "react-helmet";
 import { useSearch } from "../hooks/useSearch";
+import { useSearchFunctions, useSearchState, useSearchTerm } from "../contexts/SearchContext";
 
 const Container = styled.div`
     padding: 0 20px;
@@ -23,15 +24,11 @@ const Input = styled.input`
 `;
 
 function Search() {
-    const {
-        movieResults,
-        tvResults,
-        loading,
-        error,
-        searchTerm,
-        handleSubmit,
-        updateTerm
-    } = useSearch();
+    useSearch();
+    const { movieResults, tvResults, error, loading } = useSearchState();
+    const { handleSubmit, updateTerm } = useSearchFunctions();
+    const searchTerm = useSearchTerm();
+
     return <Container>
         <Helmet>
             <title>Search | Jimmyflix</title>

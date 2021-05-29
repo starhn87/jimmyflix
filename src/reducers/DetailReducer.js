@@ -1,11 +1,9 @@
-import { FAIL, PATHNAME, ROUTE, SUCCESS } from "../actions";
+import { FAIL, SUCCESS } from "../actions";
 
 export const detailInitialState = {
     result: null,
     error: null,
-    loading: true,
-    url: null,
-    pathname: null
+    loading: true
 };
 
 const detailReducer = (state, action) => {
