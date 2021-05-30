@@ -7,7 +7,11 @@ interface ICollection {
     name: string
 }
 
-export function useCollection(id: number) {
+interface UseCollection {
+    (id: number): { collection?: ICollection[], error?: string }
+}
+
+export const useCollection: UseCollection = (id: number) => {
     const [collection, setCollection] = useState<ICollection[]>();
     const [error, setError] = useState<string>();
 

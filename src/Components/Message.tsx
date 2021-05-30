@@ -13,7 +13,7 @@ const Text = styled.span<{ color: string }>`
 `;
 
 type Props = {
-    text: string | null,
+    text?: string,
     color: string
 }
 
