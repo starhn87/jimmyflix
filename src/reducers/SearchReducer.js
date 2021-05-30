@@ -1,11 +1,11 @@
-import { FAIL, SUCCESS } from "../actions";
+import { FAIL, LOADING, SUCCESS } from "../actions";
 
 
 export const searchInitialState = {
     movieResults: null,
     tvResults: null,
     error: null,
-    loading: true
+    loading: null
 };
 
 const searchReducer = (state, action) => {
@@ -20,7 +20,13 @@ const searchReducer = (state, action) => {
         case FAIL:
             return {
                 ...state,
-                error: "Can't find Search results."
+                error: "Can't find Search results.",
+                loading: false
+            }
+        case LOADING:
+            return {
+                ...state,
+                loading: true
             }
         default:
             return;

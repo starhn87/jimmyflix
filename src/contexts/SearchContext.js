@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useState } from "react";
-import { FAIL, SUCCESS } from "../actions";
+import { FAIL, LOADING, SUCCESS } from "../actions";
 import { moviesApi, tvApi } from "../api";
 import searchReducer, { searchInitialState } from "../reducers/SearchReducer";
 
@@ -12,6 +12,7 @@ const SearchProvider = ({ children }) => {
 
     function handleSubmit(event) {
         event.preventDefault();
+        dispatch({ type: LOADING });
         if (searchTerm !== "") {
             searchByTerm();
         }

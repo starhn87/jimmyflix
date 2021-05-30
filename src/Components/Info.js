@@ -244,7 +244,9 @@ function Info() {
                         <Route path={`${url}/season`} exact render={() => (
                             <Box>
                                 <Section>
-                                    {result.seasons.map((season, index) => <Season key={index} src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />)}
+                                    {result.seasons.map((season, index) => (
+                                        <Season key={index} src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />
+                                    ))}
                                 </Section>
                             </Box>
                         )}

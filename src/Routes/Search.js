@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-    margin-bottom: 50px;
+    margin: 10px 0 50px;
 `;
 
 const Input = styled.input`
@@ -35,11 +35,20 @@ function Search() {
             <Input placeholder="Search Movies or TV Shows..." value={searchTerm} onChange={updateTerm}>
             </Input>
         </Form>
-        {loading ? (
-            <Loader />
-        ) : (
-            <SearchResult />
-        )}
+
+        {
+            loading !== null ? (
+                loading ? (
+                    <Loader />
+                ) : (
+                    <SearchResult />
+                )
+            ) : (
+                <>
+                </>
+            )
+        }
+
     </Container>
 }
 
