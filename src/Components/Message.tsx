@@ -8,11 +8,16 @@ const Container = styled.div`
     justify-content: center;
 `;
 
-const Text = styled.span`
+const Text = styled.span<{ color: string }>`
     color: ${props => props.color};
 `;
 
-const Message = ({ text, color }) => (
+type Props = {
+    text: string | null,
+    color: string
+}
+
+const Message = ({ text, color }: Props) => (
     <Container><Text color={color}>{text}</Text></Container>
 )
 

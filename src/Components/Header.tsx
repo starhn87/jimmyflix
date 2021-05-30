@@ -21,7 +21,7 @@ const List = styled.ul`
     display: flex;
 `;
 
-const Item = styled.li`
+const Item = styled.li < { current: boolean }> `
 	width: 50px;
 	text-align: center;
 	border-bottom: 5px solid ${props => (props.current ? "#EEC425" : "transparent")};

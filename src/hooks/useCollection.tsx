@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { collections } from "../api";
 
+interface ICollection {
+    id: number,
+    poster_path: string,
+    name: string
+}
 
-export function useCollection(id) {
-    const [collection, setCollection] = useState(null);
-    const [error, setError] = useState(null);
+export function useCollection(id: number) {
+    const [collection, setCollection] = useState<ICollection[]>();
+    const [error, setError] = useState<string>();
 
     async function getCollection() {
         try {

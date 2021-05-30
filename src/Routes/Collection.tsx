@@ -15,7 +15,11 @@ const Item = styled.img`
     width: 100%;
 `;
 
-function Collection({ id }) {
+type Props = {
+    id: number
+}
+
+function Collection({ id }: Props) {
     const {
         collection,
         error

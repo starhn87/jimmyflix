@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -21,7 +20,12 @@ const Grid = styled.div`
     grid-gap: 25px;
 `;
 
-const Section = ({ title, children }) => (
+type Props = {
+    title?: string,
+    children: React.ReactNode
+}
+
+const Section = ({ title, children }: Props) => (
     <Container>
         {title && (
             <Title>{title}</Title>
@@ -29,12 +33,5 @@ const Section = ({ title, children }) => (
         <Grid>{children}</Grid>
     </Container>
 );
-
-Section.prototype = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node])
-}
 
 export default Section;

@@ -3,8 +3,8 @@ import Helmet from "react-helmet";
 import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 import useRouter from "use-react-router";
-import imdb from "../assets/imdb.png";
-import defaultImg from "../assets/noPosterSmall.png";
+import imdb from "../assets/images/imdb.png";
+import defaultImg from "../assets/images/noPosterSmall.png";
 import { useDetailState } from "../contexts/DetailContext";
 import Collection from "../Routes/Collection";
 import Section from "./Section";
@@ -16,7 +16,7 @@ const Container = styled.div`
     height: calc(100vh - 50px);
 `;
 
-const Backdrop = styled.div`
+const Backdrop = styled.div < { bgImage: string }> `
     position: absolute;
     top: 0;
     left: 0;
@@ -38,7 +38,7 @@ const Content = styled.div`
     z-index: 1;
 `;
 
-const Cover = styled.div`
+const Cover = styled.div<{ bgImage: string }>`
     width: 30%;
     height: 100%;
     background-image: url(${props => props.bgImage});
@@ -109,7 +109,7 @@ const List = styled.ul`
     width: 100%;
 `;
 
-const Li = styled.li`
+const Li = styled.li<{ current: boolean }>`
 	width: 100%;
 	text-align: center;
 	border-bottom: 5px solid ${props => (props.current ? "#EEC425" : "transparent")};
@@ -138,7 +138,7 @@ const Iframe = styled.iframe`
     }
 `;
 
-const Logo = styled.img`
+const Logo = styled.img<{ logo: string }>`
     width: 100%;
     padding: 5px;
     background-color: ${props => (props.logo ? "white" : "transparent")};
@@ -181,7 +181,7 @@ function Info() {
                             </Item>
                             <Divider>•</Divider>
                             <Item>
-                                {result.genres && result.genres.map((genre, index) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}
+                                {result.genres && result.genres.map((genre: { name: string }, index: number) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}
                             </Item>
                             <ILink target="_blank" href={`https://www.imdb.com/title/${result.imdb_id}`}>
                                 <Img src={imdb}></Img>
@@ -212,7 +212,7 @@ function Info() {
                         </Tab>
                         <Route path={`${url}`} exact render={() =>
                             !result.video && result.videos.results && result.videos.results.length > 0 &&
-                            result.videos.results.map(video => {
+                            result.videos.results.map((video: { key: number }) => {
                                 return <Iframe
                                     key={video.key}
                                     src={`https://www.youtube.com/embed/${video.key}`}
@@ -227,12 +227,12 @@ function Info() {
                         <Route path={`${url}/production`} exact render={() => (
                             <Box>
                                 {result.production_companies && result.production_companies.length > 0 && <Section title="Production Company">
-                                    {result.production_companies.map(company => {
+                                    {result.production_companies.map((company: { id: number, logo_path: string, name: string }) => {
                                         return <Logo key={company.id} logo={company.logo_path} src={`https://image.tmdb.org/t/p/original${company.logo_path}`} alt={`${company.name}`} />
                                     })}
                                 </Section>}
                                 {result.production_countries && result.production_countries.length > 0 && <Section title="Production Country">
-                                    {result.production_countries.map((country, index) =>
+                                    {result.production_countries.map((country: { name: string }, index: number) =>
                                         <Nation key={index}>{country.name}</Nation>
                                     )}
                                 </Section>}
@@ -244,7 +244,7 @@ function Info() {
                         <Route path={`${url}/season`} exact render={() => (
                             <Box>
                                 <Section>
-                                    {result.seasons.map((season, index) => (
+                                    {result.seasons.map((season: { poster_path: string, name: string }, index: number) => (
                                         <Season key={index} src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />
                                     ))}
                                 </Section>
