@@ -7,7 +7,6 @@ import { useDetailDispatch } from "../contexts/DetailContext";
 export function useDetail() {
     const { match: { params: { id } }, location: { pathname }, history: { push } } = useRouter();
     const dispatch = useDetailDispatch();
-
     const isMovie = pathname.includes("/movie/");
 
     async function getDetail() {
@@ -34,6 +33,6 @@ export function useDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
         getDetail();
-    }, []);
+    }, [id]);
 }
 

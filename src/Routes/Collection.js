@@ -3,6 +3,9 @@ import Message from "../Components/Message";
 import { useCollection } from "../hooks/useCollection";
 import Section from "../Components/Section";
 import styled from "styled-components";
+import { Link, Route } from "react-router-dom";
+import DetailProvider from "../contexts/DetailContext";
+import Detail from "./Detail";
 
 const Container = styled.div`
     width: 70%;
@@ -24,7 +27,12 @@ function Collection({ id }) {
         <Container>
             <Section>
                 {collection && collection.length > 0 &&
-                    (collection.map((c, index) => <Item key={index} src={`https://image.tmdb.org/t/p/original${c.poster_path}`} alt={c.name} />))
+                    (collection.map((c, index) => (
+                        <Link to={`/movie/${c.id}`}>
+                            <Item key={index} src={`https://image.tmdb.org/t/p/original${c.poster_path}`} alt={c.name} />
+                        </Link>
+                    )
+                    ))
                 }
             </Section>
         </Container>
