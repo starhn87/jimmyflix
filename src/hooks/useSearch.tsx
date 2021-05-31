@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 
-export function useSearch() {
+export const useSearch = (): void => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);

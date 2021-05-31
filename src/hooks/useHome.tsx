@@ -3,8 +3,7 @@ import { FAIL, SUCCESS } from "../actions";
 import { moviesApi } from "../api";
 import { useHomeDispatch } from "../contexts/HomeContext";
 
-
-export function useHome() {
+export const useHome = (): void => {
     const dispatch = useHomeDispatch();
 
     async function getHome() {

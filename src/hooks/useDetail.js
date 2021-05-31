@@ -1,10 +1,11 @@
 import { useEffect } from "react";
+import { RouteComponentProps } from "react-router";
 import useRouter from "use-react-router";
 import { FAIL, SUCCESS } from "../actions";
 import { moviesApi, tvApi } from "../api";
 import { useDetailDispatch } from "../contexts/DetailContext";
 
-export function useDetail() {
+export const useDetail = () => {
     const { match: { params: { id } }, location: { pathname }, history: { push } } = useRouter();
     const dispatch = useDetailDispatch();
     const isMovie = pathname.includes("/movie/");

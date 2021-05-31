@@ -3,6 +3,8 @@ import { useSearchState } from "../contexts/SearchContext";
 import Message from "./Message";
 import Poster from "./Poster";
 import Section from "./Section";
+import { Movie } from "./MovieResult";
+import { Show } from "./TVResult";
 
 function SearchResult() {
     const { movieResults, tvResults, error } = useSearchState();
@@ -11,7 +13,7 @@ function SearchResult() {
         <>
             {movieResults && movieResults.length > 0 && (
                 <Section title="Movie Results">
-                    {movieResults.map(movie =>
+                    {movieResults.map((movie: Movie) =>
                         <Poster
                             key={movie.id}
                             id={movie.id}
@@ -27,7 +29,7 @@ function SearchResult() {
             )}
             {tvResults && tvResults.length > 0 && (
                 <Section title="TV Shows Results">
-                    {tvResults.map(show =>
+                    {tvResults.map((show: Show) =>
                         <Poster
                             key={show.id}
                             id={show.id}

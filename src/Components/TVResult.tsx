@@ -9,6 +9,14 @@ const Container = styled.div`
     padding: 20px;
 `;
 
+export interface Show {
+    id: number,
+    poster_path: string,
+    original_name: string,
+    vote_average: number,
+    first_air_date: string
+}
+
 function TVResult() {
     const {
         topRated,
@@ -21,7 +29,7 @@ function TVResult() {
         <Container>
             {topRated && topRated.length > 0 && (
                 <Section title="Top Rated Shows">
-                    {topRated.map(show => (
+                    {topRated.map((show: Show) => (
                         <Poster
                             key={show.id}
                             id={show.id}
@@ -35,7 +43,7 @@ function TVResult() {
             )}
             {popular && popular.length > 0 && (
                 <Section title="Popular Shows">
-                    {popular.map(show => (
+                    {popular.map((show: Show) => (
                         <Poster
                             key={show.id}
                             id={show.id}
@@ -49,7 +57,7 @@ function TVResult() {
             )}
             {airingToday && airingToday.length > 0 && (
                 <Section title="Airing Today Shows">
-                    {airingToday.map(show => (
+                    {airingToday.map((show: Show) => (
                         <Poster
                             key={show.id}
                             id={show.id}

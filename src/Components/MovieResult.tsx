@@ -9,6 +9,14 @@ const Container = styled.div`
     padding: 20px;
 `;
 
+export interface Movie {
+    id: number,
+    poster_path: string,
+    original_title: string,
+    vote_average: number,
+    release_date: string
+}
+
 function MovieResult() {
     const { nowPlaying, upcoming, popular, error } = useHomeState();
 
@@ -16,7 +24,7 @@ function MovieResult() {
         <Container>
             {nowPlaying && nowPlaying.length > 0 && (
                 <Section title="Now Playing">
-                    {nowPlaying.map(movie => (
+                    {nowPlaying.map((movie: Movie) => (
                         <Poster
                             key={movie.id}
                             id={movie.id}
@@ -30,7 +38,7 @@ function MovieResult() {
             )}
             {upcoming && upcoming.length > 0 && (
                 <Section title="Upcoming Movies">
-                    {upcoming.map(movie => (
+                    {upcoming.map((movie: Movie) => (
                         <Poster
                             key={movie.id}
                             id={movie.id}
@@ -44,7 +52,7 @@ function MovieResult() {
             )}
             {popular && popular.length > 0 && (
                 <Section title="Popular Movies">
-                    {popular.map(movie => (
+                    {popular.map((movie: Movie) => (
                         <Poster
                             key={movie.id}
                             id={movie.id}

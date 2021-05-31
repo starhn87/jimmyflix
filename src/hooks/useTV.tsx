@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FAIL, SUCCESS } from "../actions";
 import { tvApi } from "../api";
 import { useTVDispatch } from "../contexts/TVContext";
 
 
-export function useTV() {
+export const useTV = (): void => {
     const dispatch = useTVDispatch();
 
     async function getTV() {

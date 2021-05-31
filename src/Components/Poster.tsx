@@ -52,8 +52,8 @@ type Props = {
     imageUrl: string,
     title: string,
     rating: number,
-    year: number,
-    isMovie: boolean
+    year: string
+    isMovie?: boolean
 }
 
 const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }: Props) => (
