@@ -1,10 +1,16 @@
-import { createContext, useContext, useReducer } from "react";
-import homeReducer, { homeInitialState } from "../reducers/HomeReducer";
+import React, { createContext, useContext, useReducer } from "react";
+import homeReducer, { homeInitialState, HomeState, HomeAction } from "../reducers/HomeReducer";
 
 
-const HomeContext = createContext();
+const HomeContext = createContext<{
+    state: HomeState,
+    dispatch: React.Dispatch<HomeAction>
+}>({
+    state: homeInitialState,
+    dispatch: () => null
+});
 
-const HomeProvider = ({ children }) => {
+const HomeProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useReducer(homeReducer, homeInitialState);
 
     return (

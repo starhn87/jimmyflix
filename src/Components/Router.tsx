@@ -37,7 +37,7 @@ export default () => (
                 </Route>
                 <Route path="*">
                     <HomeProvider>
-                        <Redirect to={{ Home }} />
+                        <Redirect to="/" />
                     </HomeProvider>
                 </Route>
             </Switch>

@@ -162,98 +162,100 @@ function Info() {
 
     return (
         <>
-            <Container>
-                <Helmet>
-                    <title>{result.original_title ? result.original_title : result.original_name} | Jimmyflix</title>
-                </Helmet>
-                <Backdrop bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`} />
-                <Content>
-                    <Cover bgImage={result.poster_path ? `https://image.tmdb.org/t/p/original${result.poster_path}` : defaultImg} />
-                    <Data>
-                        <Title>{result.original_title ? result.original_title : result.original_name}</Title>
-                        <ItemContainer>
-                            <Item>
-                                {result.release_date ? result.release_date.substring(0, 4) : result.first_air_date.substring(0, 4)}
+            {result &&
+                <Container>
+                    <Helmet>
+                        <title>{result.original_title ? result.original_title : result.original_name} | Jimmyflix</title>
+                    </Helmet>
+                    <Backdrop bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`} />
+                    <Content>
+                        <Cover bgImage={result.poster_path ? `https://image.tmdb.org/t/p/original${result.poster_path}` : defaultImg} />
+                        <Data>
+                            <Title>{result.original_title ? result.original_title : result.original_name}</Title>
+                            <ItemContainer>
+                                <Item>
+                                    {result.release_date ? result.release_date.substring(0, 4) : result.first_air_date.substring(0, 4)}
+                                </Item>
+                                <Divider>•</Divider>
+                                <Item>
+                                    {result.runtime ? result.runtime : result.episode_runtime} min
                             </Item>
-                            <Divider>•</Divider>
-                            <Item>
-                                {result.runtime ? result.runtime : result.episode_runtime} min
-                            </Item>
-                            <Divider>•</Divider>
-                            <Item>
-                                {result.genres && result.genres.map((genre: { name: string }, index: number) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}
-                            </Item>
-                            <ILink target="_blank" href={`https://www.imdb.com/title/${result.imdb_id}`}>
-                                <Img src={imdb}></Img>
-                            </ILink>
-                        </ItemContainer>
-                        <Overview>{result.overview}</Overview>
-                        <Tab>
-                            <List>
-                                <Li current={pathname === `${url}`}>
-                                    <SLink to={`${url}`}>Trailer</SLink>
-                                </Li>
-                                <Li current={pathname.includes("/production")}>
-                                    <SLink to={`${url}/production`}>Production</SLink>
-                                </Li>
-                                {
-                                    result.belongs_to_collection &&
-                                    <Li current={pathname.includes("/collection")}>
-                                        <SLink to={`${url}/collection`}>Collection</SLink>
+                                <Divider>•</Divider>
+                                <Item>
+                                    {result.genres && result.genres.map((genre: { name: string }, index: number) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}
+                                </Item>
+                                <ILink target="_blank" href={`https://www.imdb.com/title/${result.imdb_id}`}>
+                                    <Img src={imdb}></Img>
+                                </ILink>
+                            </ItemContainer>
+                            <Overview>{result.overview}</Overview>
+                            <Tab>
+                                <List>
+                                    <Li current={pathname === `${url}`}>
+                                        <SLink to={`${url}`}>Trailer</SLink>
                                     </Li>
-                                }
-                                {
-                                    result.seasons && result.seasons.length > 0 &&
-                                    <Li current={pathname.includes("/season")}>
-                                        <SLink to={`${url}/season`}>Season</SLink>
+                                    <Li current={pathname.includes("/production")}>
+                                        <SLink to={`${url}/production`}>Production</SLink>
                                     </Li>
+                                    {
+                                        result.belongs_to_collection &&
+                                        <Li current={pathname.includes("/collection")}>
+                                            <SLink to={`${url}/collection`}>Collection</SLink>
+                                        </Li>
+                                    }
+                                    {
+                                        result.seasons && result.seasons.length > 0 &&
+                                        <Li current={pathname.includes("/season")}>
+                                            <SLink to={`${url}/season`}>Season</SLink>
+                                        </Li>
+                                    }
+                                </List>
+                            </Tab>
+                            <Route path={`${url}`} exact render={() =>
+                                !result.video && result.videos.results && result.videos.results.length > 0 &&
+                                result.videos.results.map((video: { key: number }) => {
+                                    return <Iframe
+                                        key={video.key}
+                                        src={`https://www.youtube.com/embed/${video.key}`}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        title="Embedded youtube official trailer">
+                                    </Iframe>
                                 }
-                            </List>
-                        </Tab>
-                        <Route path={`${url}`} exact render={() =>
-                            !result.video && result.videos.results && result.videos.results.length > 0 &&
-                            result.videos.results.map((video: { key: number }) => {
-                                return <Iframe
-                                    key={video.key}
-                                    src={`https://www.youtube.com/embed/${video.key}`}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    title="Embedded youtube official trailer">
-                                </Iframe>
-                            }
+                                )
+                            } />
+                            <Route path={`${url}/production`} exact render={() => (
+                                <Box>
+                                    {result.production_companies && result.production_companies.length > 0 && <Section title="Production Company">
+                                        {result.production_companies.map((company: { id: number, logo_path: string, name: string }) => {
+                                            return <Logo key={company.id} logo={company.logo_path} src={`https://image.tmdb.org/t/p/original${company.logo_path}`} alt={`${company.name}`} />
+                                        })}
+                                    </Section>}
+                                    {result.production_countries && result.production_countries.length > 0 && <Section title="Production Country">
+                                        {result.production_countries.map((country: { name: string }, index: number) =>
+                                            <Nation key={index}>{country.name}</Nation>
+                                        )}
+                                    </Section>}
+                                </Box>
                             )
-                        } />
-                        <Route path={`${url}/production`} exact render={() => (
-                            <Box>
-                                {result.production_companies && result.production_companies.length > 0 && <Section title="Production Company">
-                                    {result.production_companies.map((company: { id: number, logo_path: string, name: string }) => {
-                                        return <Logo key={company.id} logo={company.logo_path} src={`https://image.tmdb.org/t/p/original${company.logo_path}`} alt={`${company.name}`} />
-                                    })}
-                                </Section>}
-                                {result.production_countries && result.production_countries.length > 0 && <Section title="Production Country">
-                                    {result.production_countries.map((country: { name: string }, index: number) =>
-                                        <Nation key={index}>{country.name}</Nation>
-                                    )}
-                                </Section>}
-                            </Box>
-                        )
-                        } />
-                        <Route path={`${url}/collection`} exact render={() => <Collection id={result.belongs_to_collection.id} />} />
+                            } />
+                            <Route path={`${url}/collection`} exact render={() => <Collection id={result.belongs_to_collection.id} />} />
 
-                        <Route path={`${url}/season`} exact render={() => (
-                            <Box>
-                                <Section>
-                                    {result.seasons.map((season: { poster_path: string, name: string }, index: number) => (
-                                        <Season key={index} src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />
-                                    ))}
-                                </Section>
-                            </Box>
-                        )}
-                        />
-                    </Data>
-                </Content>
-            </Container>
+                            <Route path={`${url}/season`} exact render={() => (
+                                <Box>
+                                    <Section>
+                                        {result.seasons.map((season: { poster_path: string, name: string }, index: number) => (
+                                            <Season key={index} src={`https://image.tmdb.org/t/p/original${season.poster_path}`} alt={season.name} />
+                                        ))}
+                                    </Section>
+                                </Box>
+                            )}
+                            />
+                        </Data>
+                    </Content>
+                </Container>
+            }
         </>
     )
 }

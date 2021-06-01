@@ -28,10 +28,10 @@ Learning React and ES6 by building a Movie Discovery App using React Presenter P
 - [x] /collections Route
 - [x] On TV Show, show seasons
 - [x] Use Context API
+- [ ] introduce Typescript
 - [ ] introduce es-lint
 - [ ] apply optimization (useMemo, useCallback)
 - [ ] introduce webpack, babel
-- [ ] introduce Typescript
 - [ ] make jimmyflix redux ver.
 
 ## Preview:

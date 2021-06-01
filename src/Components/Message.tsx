@@ -12,12 +12,12 @@ const Text = styled.span<{ color: string }>`
     color: ${props => props.color};
 `;
 
-type Props = {
+interface Props {
     text?: string,
     color: string
 }
 
-const Message = ({ text, color }: Props) => (
+const Message: React.FunctionComponent<Props> = ({ text, color }) => (
     <Container><Text color={color}>{text}</Text></Container>
 )
 

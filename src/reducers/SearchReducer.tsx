@@ -1,20 +1,34 @@
 import { FAIL, LOADING, SUCCESS } from "../actions";
 
+export interface SearchState {
+    movieResults: [] | null,
+    tvResults: [] | null,
+    error: string | null,
+    loading: boolean | null
+}
 
-export const searchInitialState = {
+export interface SearchAction {
+    type: string,
+    payload?: {
+        movieResults: [],
+        tvResults: []
+    }
+}
+
+export const searchInitialState: SearchState = {
     movieResults: null,
     tvResults: null,
     error: null,
     loading: null
 };
 
-const searchReducer = (state, action) => {
+const searchReducer = (state: SearchState, action: SearchAction): SearchState => {
     switch (action.type) {
         case SUCCESS:
             return {
                 ...state,
-                movieResults: action.payload.movieResults,
-                tvResults: action.payload.tvResults,
+                movieResults: action.payload ? action.payload.movieResults : null,
+                tvResults: action.payload ? action.payload.tvResults : null,
                 loading: false
             }
         case FAIL:
@@ -29,7 +43,7 @@ const searchReducer = (state, action) => {
                 loading: true
             }
         default:
-            return;
+            throw new Error("Unhandled Search Action.");
     }
 }
 

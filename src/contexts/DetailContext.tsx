@@ -1,9 +1,15 @@
-import { createContext, useContext, useReducer } from "react";
-import detailReducer, { detailInitialState } from "../reducers/DetailReducer";
+import React, { createContext, useContext, useReducer } from "react";
+import detailReducer, { DetailAction, detailInitialState, DetailState } from "../reducers/DetailReducer";
 
-const DetailContext = createContext();
+const DetailContext = createContext<{
+    state: DetailState,
+    dispatch: React.Dispatch<DetailAction>
+}>({
+    state: detailInitialState,
+    dispatch: () => null
+});
 
-const DetailProvider = ({ children }) => {
+const DetailProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useReducer(detailReducer, detailInitialState);
 
     return (

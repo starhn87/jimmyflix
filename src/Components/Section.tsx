@@ -20,12 +20,12 @@ const Grid = styled.div`
     grid-gap: 25px;
 `;
 
-type Props = {
+interface Props {
     title?: string,
     children: React.ReactNode
 }
 
-const Section = ({ title, children }: Props) => (
+const Section: React.FunctionComponent<Props> = ({ title, children }) => (
     <Container>
         {title && (
             <Title>{title}</Title>

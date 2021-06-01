@@ -1,11 +1,18 @@
-import { createContext, useContext, useReducer } from "react"
-import useRouter from "use-react-router"
+import { createContext, ReactNode, useContext, useReducer } from "react";
+import React from "react";
 import tvReducer, { tvInitialState } from "../reducers/TVReducer";
+import { TVState, TVAction } from "../reducers/TVReducer";
 
 
-const TVContext = createContext();
+const TVContext = createContext<{
+    state: TVState,
+    dispatch: React.Dispatch<TVAction>
+}>({
+    state: tvInitialState,
+    dispatch: () => null
+});
 
-const TVProvider = ({ children }) => {
+const TVProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useReducer(tvReducer, tvInitialState);
 
     return (

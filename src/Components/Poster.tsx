@@ -47,7 +47,7 @@ const Year = styled.span`
     color: rgba(255, 255, 255, 0.5);
 `;
 
-type Props = {
+interface Props {
     id: number,
     imageUrl: string,
     title: string,
@@ -56,7 +56,7 @@ type Props = {
     isMovie?: boolean
 }
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }: Props) => (
+const Poster: React.FunctionComponent<Props> = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
     <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
         <Container>
             <ImageContainer>

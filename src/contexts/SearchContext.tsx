@@ -1,16 +1,28 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 import { FAIL, LOADING, SUCCESS } from "../actions";
 import { moviesApi, tvApi } from "../api";
-import searchReducer, { searchInitialState } from "../reducers/SearchReducer";
+import searchReducer, { SearchState, SearchAction, searchInitialState } from "../reducers/SearchReducer";
 
 
-const SearchContext = createContext();
+const SearchContext = createContext<{
+    state: SearchState,
+    dispatch: React.Dispatch<SearchAction>,
+    searchTerm: string,
+    handleSubmit: (event: React.FormEvent) => void,
+    updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void
+}>({
+    state: searchInitialState,
+    dispatch: () => null,
+    searchTerm: "",
+    handleSubmit: () => null,
+    updateTerm: () => null
+});
 
-const SearchProvider = ({ children }) => {
+const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useReducer(searchReducer, searchInitialState);
     const [searchTerm, setSearchTerm] = useState("");
 
-    function handleSubmit(event) {
+    function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
         dispatch({ type: LOADING });
         if (searchTerm !== "") {
@@ -18,7 +30,7 @@ const SearchProvider = ({ children }) => {
         }
     }
 
-    function updateTerm(event) {
+    function updateTerm(event: React.ChangeEvent<HTMLInputElement>) {
         const { target: { value } } = event;
         setSearchTerm(value);
     }
@@ -46,8 +58,8 @@ export const useSearchTerm = () => {
 }
 
 export const useSearchFunctions = () => {
-    const { handleSubmit, updateTerm, searchByTerm } = useContext(SearchContext);
-    return { handleSubmit, updateTerm, searchByTerm };
+    const { handleSubmit, updateTerm } = useContext(SearchContext);
+    return { handleSubmit, updateTerm };
 }
 
 export const useSearchDispatch = () => {
