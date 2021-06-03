@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import Home from "../Routes/Home";
 import TV from "../Routes/TV";
 import Search from "../Routes/Search";
-import Header from "./Header";
 import Detail from "../Routes/Detail";
 import DetailProvider from "../contexts/DetailContext";
 import HomeProvider from "../contexts/HomeContext";
@@ -12,35 +11,32 @@ import SearchProvider from "../contexts/SearchContext";
 
 export default () => (
     <Router>
-        <>
-            <Header />
-            <Switch>
-                <Route path="/" exact>
-                    <HomeProvider>
-                        <Home />
-                    </HomeProvider>
-                </Route>
-                <Route path="/tv">
-                    <TVProvider>
-                        <TV />
-                    </TVProvider>
-                </Route>
-                <Route path="/search">
-                    <SearchProvider>
-                        <Search />
-                    </SearchProvider>
-                </Route>
-                <Route path={["/movie/:id", "/show/:id"]}>
-                    <DetailProvider>
-                        <Detail />
-                    </DetailProvider>
-                </Route>
-                <Route path="*">
-                    <HomeProvider>
-                        <Redirect to="/" />
-                    </HomeProvider>
-                </Route>
-            </Switch>
-        </>
+        <Switch>
+            <Route path="/" exact>
+                <HomeProvider>
+                    <Home />
+                </HomeProvider>
+            </Route>
+            <Route path="/tv">
+                <TVProvider>
+                    <TV />
+                </TVProvider>
+            </Route>
+            <Route path="/search">
+                <SearchProvider>
+                    <Search />
+                </SearchProvider>
+            </Route>
+            <Route path={["/movie/:id", "/show/:id"]}>
+                <DetailProvider>
+                    <Detail />
+                </DetailProvider>
+            </Route>
+            <Route path="*">
+                <HomeProvider>
+                    <Redirect to="/" />
+                </HomeProvider>
+            </Route>
+        </Switch>
     </Router>
 )

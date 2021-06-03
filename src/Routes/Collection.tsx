@@ -15,11 +15,11 @@ const Item = styled.img`
     width: 100%;
 `;
 
-type Props = {
+interface Props {
     id: number
 }
 
-function Collection({ id }: Props) {
+const Collection = ({ id }: Props) => {
     const {
         collection,
         error

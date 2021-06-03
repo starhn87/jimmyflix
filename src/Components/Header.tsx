@@ -1,8 +1,9 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, { useMemo } from "react";
+import { Link, RouteComponentProps, useLocation, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import styled from "styled-components";
+import useRouter from "use-react-router";
 
-const Header = styled.header`
+const Head = styled.header`
 	color: white;
 	position: fixed;
 	top: 0;
@@ -35,18 +36,24 @@ const SLink = styled(Link)`
 	justify-content: center;
 `;
 
-export default withRouter(({ location: { pathname } }) => (
-	<Header>
-		<List>
-			<Item current={pathname === "/" || pathname.includes("/movie")}>
-				<SLink to="/">Movies</SLink>
-			</Item>
-			<Item current={pathname === "/tv" || pathname.includes("/show")}>
-				<SLink to="/tv">TV</SLink>
-			</Item>
-			<Item current={pathname.includes("/search")}>
-				<SLink to="/search">Search</SLink>
-			</Item>
-		</List>
-	</Header>
-));
+const Header = () => {
+	const { match: { url }, location: { pathname } } = useRouter();
+
+	return useMemo(() => (
+		<Head>
+			<List>
+				<Item current={pathname === "/" || pathname.includes("/movie")}>
+					<SLink to="/">Movies</SLink>
+				</Item>
+				<Item current={pathname === "/tv" || pathname.includes("/show")}>
+					<SLink to="/tv">TV</SLink>
+				</Item>
+				<Item current={pathname.includes("/search")}>
+					<SLink to="/search">Search</SLink>
+				</Item>
+			</List>
+		</Head>
+	), [url]);
+}
+
+export default Header;

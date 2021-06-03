@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import { useSearch } from "../hooks/useSearch";
 import { useSearchFunctions, useSearchState, useSearchTerm } from "../contexts/SearchContext";
 import SearchResult from "../Components/SearchResult";
+import Header from "../Components/Header";
 
 const Container = styled.div`
     padding: 0 20px;
@@ -31,6 +32,7 @@ function Search() {
         <Helmet>
             <title>Search | Jimmyflix</title>
         </Helmet>
+        <Header />
         <Form onSubmit={handleSubmit}>
             <Input placeholder="Search Movies or TV Shows..." value={searchTerm} onChange={updateTerm}>
             </Input>

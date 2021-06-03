@@ -6,9 +6,7 @@ import { moviesApi, tvApi } from "../api";
 import { useDetailDispatch } from "../contexts/DetailContext";
 
 export const useDetail = () => {
-    const { id } = useParams<{ id: string }>();
-    const { pathname } = useLocation<RouteComponentProps>();
-    const { push } = useHistory<RouteComponentProps>();
+    const { match: { params: { id } }, location: { pathname }, history: { push } } = useRouter<any>();
     const dispatch = useDetailDispatch();
     const isMovie = pathname.includes("/movie/");
 

@@ -24,6 +24,7 @@ const SearchProvider = ({ children }: { children: React.ReactNode }) => {
 
     function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
+        console.log("handleSubmit!!");
         dispatch({ type: LOADING });
         if (searchTerm !== "") {
             searchByTerm();
@@ -32,6 +33,7 @@ const SearchProvider = ({ children }: { children: React.ReactNode }) => {
 
     function updateTerm(event: React.ChangeEvent<HTMLInputElement>) {
         const { target: { value } } = event;
+        console.log("updateTerm!!");
         setSearchTerm(value);
     }
 

@@ -5,6 +5,7 @@ import Message from "../Components/Message";
 import { useDetail } from "../hooks/useDetail";
 import Info from "../Components/Info";
 import { useDetailState } from "../contexts/DetailContext";
+import Header from "../Components/Header";
 
 function Detail() {
     useDetail();
@@ -15,14 +16,20 @@ function Detail() {
             <Helmet>
                 <title>Loading | Jimmyflix</title>
             </Helmet>
+            <Header />
             <Loader />
         </>
     ) : (
-        error ? (
-            <Message color="#e74c3c" text={error}></Message>
-        ) : (
-            <Info />
-        )
+        <>
+            <Header />
+            {
+                error ? (
+                    <Message color="#e74c3c" text={error}></Message>
+                ) : (
+                    <Info />
+                )
+            }
+        </>
     )
 }
 
